@@ -21,9 +21,7 @@ export default function ProductPage() {
         const rate = await convertFromUSD(1, user.currency);
         setExchangeRate(rate);
 
-        const bannedRes = await fetch(
-          `/api/banned?destination=${user.country}`
-        );
+        const bannedRes = await fetch(`/api/banned?destination=${user.country}`);
         const { banned } = await bannedRes.json();
 
         const filtered = products.filter(
@@ -61,31 +59,41 @@ export default function ProductPage() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Available Products</h1>
-      {loading && <p>Loading products...</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {allowedProducts.map((product) => {
-          const convertedPrice = (product.basePriceUSD * exchangeRate).toFixed(
-            2
-          );
-          return (
-            <div
-              key={product.id}
-              className="border p-4 rounded shadow bg-white"
-            >
-              <h2 className="text-lg font-semibold">{product.name}</h2>
-              <p>Origin: {product.originCountry}</p>
-              <p>
-                Price in {currency}: {convertedPrice}
-              </p>
-              <p className="text-orange-600">
-                Customs Duty: {tariffs[product.id] || "..."}
-              </p>
-            </div>
-          );
-        })}
-      </div>
+    <div className="p-6 max-w-7xl mx-auto bg-gray-50 min-h-screen">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+        🌍 Available Products for You
+      </h1>
+
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <p className="text-lg text-blue-500 animate-pulse">Loading products...</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allowedProducts.map((product) => {
+            const convertedPrice = (product.basePriceUSD * exchangeRate).toFixed(2);
+            return (
+              <div
+                key={product.id}
+                className="border border-gray-200 rounded-2xl shadow-lg p-5 bg-white hover:shadow-xl transition duration-300"
+              >
+                <h2 className="text-xl font-semibold text-gray-700 mb-2">{product.name}</h2>
+                <p className="text-gray-500 mb-1">🌐 Origin: {product.originCountry}</p>
+                <p className="text-gray-700 mb-1">
+                  💵 Price ({currency}):{" "}
+                  <span className="font-medium text-green-600">{convertedPrice}</span>
+                </p>
+                <p className="text-gray-700">
+                  🧾 Customs Duty:{" "}
+                  <span className="font-semibold text-orange-600">
+                    {tariffs[product.id] || "..."}
+                  </span>
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -15,27 +15,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white text-black shadow-md p-6 rounded w-full max-w-sm">
-        <h2 className="text-xl font-semibold mb-4">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-green-100">
+      <div className="bg-white text-black shadow-xl p-8 rounded-2xl w-full max-w-md border border-gray-200">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">Welcome to GlobexMart</h2>
+        
+        <label className="block mb-2 font-semibold">Name</label>
         <input
-          className="border p-2 mb-3 w-full"
-          placeholder="Name"
+          className="border border-gray-300 p-3 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="Enter your name"
           onChange={(e) => setName(e.target.value)}
         />
+
+        <label className="block mb-2 font-semibold">Country of Residence</label>
         <input
-          className="border p-2 mb-3 w-full"
-          placeholder="Country of Residence"
+          className="border border-gray-300 p-3 rounded w-full mb-4 focus:outline-none focus:ring-2 focus:ring-green-400"
+          placeholder="E.g., India"
           onChange={(e) => setCountry(e.target.value)}
         />
+
+        <label className="block mb-2 font-semibold">Preferred Currency</label>
         <select
-          className="border p-2 mb-4 w-full"
+          className="border border-gray-300 p-3 rounded w-full mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           onChange={(e) => setCurrency(e.target.value)}
           defaultValue=""
         >
-          <option value="" disabled>
-            Select Preferred Currency
-          </option>
+          <option value="" disabled>Select Currency</option>
           <option value="USD">USD - US Dollar</option>
           <option value="EUR">EUR - Euro</option>
           <option value="INR">INR - Indian Rupee</option>
@@ -47,8 +51,9 @@ export default function LoginPage() {
           <option value="SGD">SGD - Singapore Dollar</option>
           <option value="KRW">KRW - South Korean Won</option>
         </select>
+
         <button
-          className="bg-blue-600 text-white w-full py-2 rounded"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full py-3 rounded transition duration-200"
           onClick={handleLogin}
         >
           Continue
